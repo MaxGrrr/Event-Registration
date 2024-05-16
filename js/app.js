@@ -1,7 +1,7 @@
 const registerButtons = document.querySelectorAll("#register__btn");
 const viewButtons = document.querySelectorAll("#view__btn");
 const titleForRegistrationForm = document.getElementById("event_title").innerText;
-
+const searchInput = document.querySelector('.search');
 
 
 registerButtons.forEach(button => {
@@ -39,6 +39,10 @@ function openViewModal(eventTitle, eventDescription, participants) {
   const participantList = participants.length === 0 ? "<p>There are no registered participants yet.</p>" : `
   <div class="participants-container">
     <h3>Registered Participants</h3>
+      <form class="participant_form> 
+          <input type="text" name=text" class="search_form" placeholder="Search participants here">
+          <button class="search" id="search__btn">Search</button>
+      </form>
     <div class="participants-grid">
       ${participants.map(participant => `
         <div class="participant-tile">
@@ -61,9 +65,13 @@ function openViewModal(eventTitle, eventDescription, participants) {
   
   document.body.appendChild(modalView); 
   document.querySelector(".modal-close").addEventListener("click", () => {closeModal()
-    
+
   });
 };
+
+
+
+
 
 function openModal(_eventTitle) {
     const modal = document.createElement('div');

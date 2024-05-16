@@ -148,6 +148,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Four tiles per row */
     gap: 20px;
+    margin-top: 30px;
   }
   
   .participant-tile {
@@ -156,6 +157,10 @@
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
+  }
+  .participant-tile:hover {
+    transition: 0.8s;
+    transform: scale(1.15);
   }
   
   .participant-name {
@@ -169,4 +174,24 @@
 
 .view__width {
     width: 60%;
+}
+
+.search_form {
+    padding: 20px;
+}
+
+.participant_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+  }
+
+.search {
+    background-color: #04b5fb;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
 }
