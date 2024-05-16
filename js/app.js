@@ -60,6 +60,9 @@ function openViewModal(eventTitle, eventDescription, participants) {
   `;
   
   document.body.appendChild(modalView); 
+  document.querySelector(".modal-close").addEventListener("click", () => {closeModal()
+    
+  });
 };
 
 function openModal(_eventTitle) {
@@ -156,6 +159,3 @@ function closeModal() {
         modalView.parentNode.removeChild(modalView);
     };
 };
-
-
-
