@@ -1,14 +1,14 @@
+// Отримання кнопок реєстрації та перегляду
 const registerButtons = document.querySelectorAll("#register__btn");
 const viewButtons = document.querySelectorAll("#view__btn");
 const titleForRegistrationForm = document.getElementById("event_title").innerText;
-const searchInput = document.querySelector('.search');
 
 // кнопка register
 registerButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const eventTitle = button.parentNode.querySelector('#register__btn').textContent;
-        openModal(eventTitle);
-    });
+  button.addEventListener('click', () => {
+      const eventTitle = button.parentNode.querySelector('#register__btn').textContent;
+      openModal(eventTitle);
+  });
 });
 // register форма реєстрації
 function openModal(_eventTitle) {
@@ -46,35 +46,34 @@ function openModal(_eventTitle) {
                   </div>
               </div>
               <button type="submit">Register</button>
+              <button type="button" class="modal-close">Close</button>
           </form>
       </div>
   `;
 
   document.body.appendChild(modal);
 
-// кнопка view
-viewButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const event = this.closest('.event');  
-      if (!event) return;  
-  
-      const eventTitle = event.querySelector('.event__title').textContent;
-      const eventDescription = event.querySelector('.event__description').textContent;
-      const participants = [
-        { name: "Іван Петренко", email: "ivan.petrenko@mail.com",},
-        { name: "Олена Сидоренко", email: "olena.sydorov@mail.com" },
-        { name: "Тарас Шевченко", email: "taras.shevchenko@mail.com" },
-        { name: "Артем Завинський", email: "art.zavynsiy@mail.com" },
-        { name: "Сергій Приходько", email: "serg.prychodko@mail.com" },
-        { name: "Галина Щербина", email: "galyna529@mail.com" }
-      ];
-      openViewModal(eventTitle, eventDescription, participants);
-      
-    });
-  });
-  
+  document.querySelector(".modal-close").addEventListener("click", closeModal);
 
-// view модульне вікно
+  const form = document.getElementById('registrationForm');
+  form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const dateOfBirth = document.getElementById('dateOfBirth').value;
+      const whereDidYouHear = document.querySelector('input[name="whereDidYouHear"]:checked').value;
+
+      const data = { name, email, dateOfBirth, whereDidYouHear };
+      console.log(`Full name: ${name}`);
+      console.log(`E-mail: ${email}`);
+      console.log(`Date of birth: ${dateOfBirth}`);
+      console.log(`Where did you hear about this event?: ${whereDidYouHear}`);
+
+      closeModal();
+  });
+}
+    
+// view перегляд по кнопці 
 function openViewModal(eventTitle, eventDescription, participants) {
   const modalView = document.createElement('div');
   modalView.classList.add('modal__view');
@@ -114,7 +113,7 @@ function openViewModal(eventTitle, eventDescription, participants) {
   const searchButton = document.querySelector('.search');
   const output = document.getElementById('out');
 
-  searchButton.addEventListener('click', (event) => {   // введення, пошук і вивід наявних pаrticipants
+  searchButton.addEventListener('click', (event) => {
     event.preventDefault();
     const searchTerm = searchInput.value.toLowerCase();
     const foundParticipants = participants.filter(participant =>
@@ -135,24 +134,29 @@ function openViewModal(eventTitle, eventDescription, participants) {
     }
   });
 
-  document.querySelector(".modal-close").addEventListener("click", () => {
-    closeModal();
+  document.querySelector(".modal-close").addEventListener("click", closeModal);
+}
+// обробник подій для кнопок перегляд
+viewButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    const event = this.closest('.event');
+    if (!event) return;
+    const eventTitle = event.querySelector('.event__title').textContent;
+    const eventDescription = event.querySelector('.event__description').textContent;
+    const participants = [
+      { name: "Іван Петренко", email: "ivan.petrenko@mail.com", },
+      { name: "Олена Сидоренко", email: "olena.sydorov@mail.com" },
+      { name: "Тарас Шевченко", email: "taras.shevchenko@mail.com" },
+      { name: "Артем Завинський", email: "art.zavynsiy@mail.com" },
+      { name: "Сергій Приходько", email: "serg.prychodko@mail.com" },
+      { name: "Галина Щербина", email: "galyna529@mail.com" },
+    ];
+
+    openViewModal(eventTitle, eventDescription, participants);
   });
-};
+});
 
-
-// кнопка закриття Close
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'Close';
-    closeButton.classList.add('modal-close');
-    modal.querySelector('.modal-content').appendChild(closeButton);
-
-    // Подію click для кнопки закриття
-    closeButton.addEventListener('click', () => {
-        closeModal();
-    });
-
-    // логіка закриття модульного вікна
+// Функція для закриття модального вікна
 function closeModal() {
   const modal = document.querySelector('.modal');
   const modalView = document.querySelector('.modal__view');
@@ -161,48 +165,5 @@ function closeModal() {
   }
   if (modalView) {
       modalView.parentNode.removeChild(modalView);
-  };
-};
-
-    // Логіка обробки форми реєстрації
-    function closeModal() {
-      const modal = document.querySelector('.modal');
-      const modalView = document.querySelector('.modal__view');
-      if (modal) {
-          modal.parentNode.removeChild(modal);
-      }
-      if (modalView) {
-          modalView.parentNode.removeChild(modalView);
-      };
-    };
-    
-        // Логіка обробки форми реєстрації
-        const form = document.getElementById('registrationForm');
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-    
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const dateOfBirth = document.getElementById('dateOfBirth').value;
-            const whereDidYouHear = document.querySelector('input[name="whereDidYouHear"]:checked').value;
-    
-         // Підготувати дані для надсилання
-        const data = {
-         name,
-         email,
-         dateOfBirth,
-         whereDidYouHear,
-       };
-       
-    
-            // Обробка даних форми реєстрації
-            console.log(`Full name: ${name}`);
-            console.log(`E-mail: ${email}`);
-            console.log(`Date of birth: ${dateOfBirth}`);
-            console.log(`Where did you hear about this event?: ${whereDidYouHear}`);
-    
-            // Закрити модальнe вікно
-            closeModal();
-      });
-    };
-    
+  }
+}

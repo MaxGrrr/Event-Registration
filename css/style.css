@@ -140,10 +140,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
  }
 
  .participants-container {
     margin-top: 20px;
+    
   }
   
   .participants-grid {
