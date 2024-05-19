@@ -1,3 +1,14 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
 .main{
     display: grid;
     column-gap: 50px;
@@ -19,13 +30,24 @@
    border-radius: 5px;
    flex-direction: column;
    justify-content: space-between;
+   background-color: #f4f4f4;
+
+ }
+ .events :hover {
+    background-color: #ffffff;
  }
 .event__title {
-  
+  font-family: Arial, Helvetica, bold;
+}
+.event__date {
+    font-family: Arial, monospace, sans-serif;
+}
+.event__organizer {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .event__description {
-  
+  font-family: cursive;
 }
 
 .event__buttons {
@@ -44,21 +66,21 @@
      background-color: #0056b3;
  }
 
-/* модальне вікно випливання*/
+
 
  .modal {
-     position: fixed; /* Розташувати вікно поверх всього контенту */
+     position: fixed;
      top: 0;
      left: 0;
      width: 100%;
      height: 100%;
-     background-color: rgba(0, 0, 0, 0.5); /* Напівпрозоре тло */
+     background-color: rgba(0, 0, 0, 0.5); 
      display: flex;
      align-items: center;
      justify-content: center;
  }
 
- /* модальне вікно випливання*/
+
 
  /* модальне вікно дизайн */
  .modal-content {
@@ -126,15 +148,15 @@
      background-color: #990202;
 }
 
- /* модальне вікно дизайн*/
 
+ /* модальне вікно дизайн*/
  .modal__view {
-    position: fixed; /* Розташувати вікно поверх всього контенту */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Напівпрозоре тло */
+    background-color: rgba(0, 0, 0, 0.5); 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,14 +170,13 @@
   
   .participants-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Four tiles per row */
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr); 
     margin-top: 30px;
   }
   
   .participant-tile {
     background-color: #fff;
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -179,11 +200,11 @@
 }
 
 .search_form {
-width: 75%; /* adjust width as needed */
-  margin: 10px auto; /* center the form */
-  padding: 10px; /* add some padding */
-  border: 1px solid #ccc; /* add a border */
-  border-radius: 10px; /* add rounded corners */
+width: 75%; 
+  margin: 10px auto; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 10px; 
   
 }
 .participant-container{
@@ -195,7 +216,7 @@ width: 75%; /* adjust width as needed */
     background-color: #04b5fb;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 5px;
     cursor: pointer;
     border-radius: 5px;
 }
@@ -223,4 +244,11 @@ width: 75%; /* adjust width as needed */
 .prev-page:disabled, .next-page:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+#out {
+    display: flex;
+    overflow: hidden;
+    width: 800px;
+
 }

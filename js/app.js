@@ -6,12 +6,12 @@ const titleForRegistrationForm = document.getElementById("event_title").innerTex
 
 // Отримання учасників з localStorage або ініціалізація порожнім масивом
 let participants = JSON.parse(localStorage.getItem('participants')) || [
-  { name: "Іван Петренко", email: "ivan.petrenko@mail.com" },
-  { name: "Олена Сидоренко", email: "olena.sydorov@mail.com" },
-  { name: "Тарас Шевченко", email: "taras.shevchenko@mail.com" },
-  { name: "Артем Завинський", email: "art.zavynsiy@mail.com" },
-  { name: "Сергій Приходько", email: "serg.prychodko@mail.com" },
-  { name: "Галина Щербина", email: "galyna529@mail.com" },
+  { name: "Andrii Borkov", email: "andr21@gmail.com" },
+  { name: "Olena Vilhova", email: "olena.vilhova@gmail.com" },
+  { name: "Taras Volnyi", email: "taras.volnyi@gmail.com" },
+  { name: "Artem Mytiuk", email: "art.mytiuk@gmail.com" },
+  { name: "Vitalii Pryhodko", email: "vitalii.prychodko@gmail.com" },
+  { name: "Halyna Scherbyna", email: "galyna529@gmail.com" }
 ];
 
 // Функція для збереження учасників у localStorage
@@ -81,8 +81,8 @@ function openModal(_eventTitle) {
     const whereDidYouHear = document.querySelector('input[name="whereDidYouHear"]:checked').value;
 
     const newParticipant = { name, email, dateOfBirth, whereDidYouHear };
-    participants.push(newParticipant); // Додаємо нового учасника до масиву
-    saveParticipants(); // Зберігаємо оновлений масив у localStorage
+    participants.push(newParticipant); // додати нового учасника до масиву
+    saveParticipants(); // зберіга оновлений масив у localStorage
 
     console.log(`Full name: ${name}`);
     console.log(`E-mail: ${email}`);
@@ -94,7 +94,7 @@ function openModal(_eventTitle) {
 }
 
 // перегляд по кнопці view
-function openViewModal(eventTitle, eventDescription) {
+function openViewModal(eventTitle, eventDescription, eventDate, eventOrganizer) {
   const modalView = document.createElement('div');
   modalView.classList.add('modal__view');
 
@@ -122,6 +122,8 @@ function openViewModal(eventTitle, eventDescription) {
     <div class="modal-content view__width">
       <h2 class="modal-title">${eventTitle}</h2>
       <p class="event-description">${eventDescription}</p>
+      <p class="event__date">${eventDate}</p>
+      <p class="event__organizer">${eventOrganizer}</p>
       ${participantList}
       <button class="modal-close">Close</button>
     </div>
@@ -135,12 +137,14 @@ function openViewModal(eventTitle, eventDescription) {
 
   searchButton.addEventListener('click', (event) => {
     event.preventDefault();
-    const searchTerm = searchInput.value.toLowerCase();
+    const searchTerm = searchInput.value.trim().toLowerCase();
     const foundParticipants = participants.filter(participant =>
       participant.name.toLowerCase().includes(searchTerm) ||
       participant.email.toLowerCase().includes(searchTerm)
     );
 
+
+    
     if (!searchTerm) {
       output.textContent = '';
       return;
@@ -164,12 +168,14 @@ viewButtons.forEach(button => {
     if (!event) return;
     const eventTitle = event.querySelector('.event__title').textContent;
     const eventDescription = event.querySelector('.event__description').textContent;
+    const eventDate = event.querySelector('.event__date').textContent;
+    const eventOrganizer = event.querySelector('.event__organizer').textContent;
 
-    openViewModal(eventTitle, eventDescription);
+    openViewModal(eventTitle, eventDescription, eventDate, eventOrganizer);
   });
 });
 
-// Функція для закриття модального вікна
+//Закриття модального вікна
 function closeModal() {
   const modal = document.querySelector('.modal');
   const modalView = document.querySelector('.modal__view');
@@ -184,7 +190,6 @@ function closeModal() {
 
 
 
-
 document.addEventListener('DOMContentLoaded', function() {
   const eventElements = Array.from(document.querySelectorAll('.event'));
   const eventsSection = document.querySelector('.events');
@@ -194,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const eventsPerPage = 8;
   let currentPage = 1;
 
-  // Функція для відображення подій на поточній сторінці
+  // Відображення подій на поточній сторінці
   function displayEvents() {
       eventsSection.innerHTML = '';
 
@@ -209,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
       updatePaginationButtons();
   }
 
-  // Функція для оновлення стану кнопок пагінації
+  //Оновлення стану кнопок пагінації
   function updatePaginationButtons() {
       const totalPages = Math.ceil(eventElements.length / eventsPerPage);
 
@@ -226,13 +231,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   }
 
-  // Обробник кліку на кнопці Next Page
+  // Клік обробник на кнопці Next Page
   nextPageBtn.addEventListener('click', function() {
       currentPage++;
       displayEvents();
   });
 
-  // Обробник кліку на кнопці Previous Page
+  // Обробник для Previous Page
   prevPageBtn.addEventListener('click', function() {
       currentPage--;
       displayEvents();
