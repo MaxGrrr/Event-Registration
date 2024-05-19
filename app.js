@@ -2,7 +2,7 @@ const registerButtons = document.querySelectorAll("#register__btn");
 const viewButtons = document.querySelectorAll("#view__btn");
 const titleForRegistrationForm = document.getElementById("event_title").innerText;
 
-// Отримання учасників з localStorage або ініціалізація порожнім масивом
+// Отримання учасників з localStorage / ініціалізація порожнім масивом
 let participants = JSON.parse(localStorage.getItem('participants')) || [
   { name: "Andrii Borkov", email: "andr21@gmail.com" },
   { name: "Olena Vilhova", email: "olena.vilhova@gmail.com" },
