@@ -2,8 +2,6 @@ const registerButtons = document.querySelectorAll("#register__btn");
 const viewButtons = document.querySelectorAll("#view__btn");
 const titleForRegistrationForm = document.getElementById("event_title").innerText;
 
-
-
 // Отримання учасників з localStorage або ініціалізація порожнім масивом
 let participants = JSON.parse(localStorage.getItem('participants')) || [
   { name: "Andrii Borkov", email: "andr21@gmail.com" },
@@ -143,8 +141,6 @@ function openViewModal(eventTitle, eventDescription, eventDate, eventOrganizer) 
       participant.email.toLowerCase().includes(searchTerm)
     );
 
-
-    
     if (!searchTerm) {
       output.textContent = '';
       return;
@@ -174,6 +170,7 @@ viewButtons.forEach(button => {
     openViewModal(eventTitle, eventDescription, eventDate, eventOrganizer);
   });
 });
+
 
 //Закриття модального вікна
 function closeModal() {
