@@ -180,18 +180,19 @@ function closeModal() {
     modalView.parentNode.removeChild(modalView);
   }
 }
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
-  const eventsSection = document.getElementById('eventsSection');
+  const eventElements = Array.from(document.querySelectorAll('.event'));
+  const eventsSection = document.querySelector('.events');
   const prevPageBtn = document.getElementById('prevPageBtn');
   const nextPageBtn = document.getElementById('nextPageBtn');
+  
   const eventsPerPage = 8;
   let currentPage = 1;
-
-  // масив подій
-  const events = [
-      { title: "Event 1", description: "Description 1" },
-      { title: "Event 2", description: "Description 2" },
-  ];
 
   // Функція для відображення подій на поточній сторінці
   function displayEvents() {
@@ -199,20 +200,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
       const startIndex = (currentPage - 1) * eventsPerPage;
       const endIndex = startIndex + eventsPerPage;
-      const displayedEvents = events.slice(startIndex, endIndex);
+      const displayedEvents = eventElements.slice(startIndex, endIndex);
 
       displayedEvents.forEach(event => {
-          const eventElement = document.createElement('div');
-          eventElement.classList.add('event');
-          eventElement.innerHTML = `
-              <h2 class="event__title">${event.title}</h2>
-              <p class="event__description">${event.description}</p>
-              <div class="event__buttons">
-                  <button class="event__button register__btn">Register</button>
-                  <button class="event__button view__btn">View</button>
-              </div>
-          `;
-          eventsSection.appendChild(eventElement);
+          eventsSection.appendChild(event);
       });
 
       updatePaginationButtons();
@@ -220,13 +211,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Функція для оновлення стану кнопок пагінації
   function updatePaginationButtons() {
+      const totalPages = Math.ceil(eventElements.length / eventsPerPage);
+
       if (currentPage === 1) {
           prevPageBtn.disabled = true;
       } else {
           prevPageBtn.disabled = false;
       }
 
-      const totalPages = Math.ceil(events.length / eventsPerPage);
       if (currentPage === totalPages) {
           nextPageBtn.disabled = true;
       } else {
@@ -244,66 +236,6 @@ document.addEventListener('DOMContentLoaded', function() {
   prevPageBtn.addEventListener('click', function() {
       currentPage--;
       displayEvents();
-  });
-
-  // Початкове відображення подій при завантаженні сторінки
-  displayEvents();
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Отримання всіх елементів event зі сторінки
-  const eventElements = Array.from(document.querySelectorAll('.event'));
-
-  // Кількість подій на сторінці
-  const eventsPerPage = 8;
-  let currentPage = 1;
-
-  // Функція для відображення подій на поточній сторінці
-  function displayEvents() {
-    // Обчислюємо індекси початку і кінця поточної сторінки
-    const startIndex = (currentPage - 1) * eventsPerPage;
-    const endIndex = startIndex + eventsPerPage;
-
-    // Відображення подій на сторінці
-    eventElements.forEach((event, index) => {
-      if (index >= startIndex && index < endIndex) {
-        event.style.display = 'block'; // Показуємо подію
-      } else {
-        event.style.display = 'none'; // Ховаємо подію
-      }
-    });
-
-    updatePaginationButtons();
-  }
-
-  // Функція для оновлення стану кнопок пагінації
-  function updatePaginationButtons() {
-    const totalPages = Math.ceil(eventElements.length / eventsPerPage);
-
-    // Відключення/увімкнення кнопок в залежності від поточної сторінки
-    if (currentPage === 1) {
-      prevPageBtn.disabled = true;
-    } else {
-      prevPageBtn.disabled = false;
-    }
-
-    if (currentPage === totalPages) {
-      nextPageBtn.disabled = true;
-    } else {
-      nextPageBtn.disabled = false;
-    }
-  }
-
-  // Обробник кліку на кнопці Next Page
-  nextPageBtn.addEventListener('click', function() {
-    currentPage++;
-    displayEvents();
-  });
-
-  // Обробник кліку на кнопці Previous Page
-  prevPageBtn.addEventListener('click', function() {
-    currentPage--;
-    displayEvents();
   });
 
   // Початкове відображення подій при завантаженні сторінки
